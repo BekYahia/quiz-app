@@ -5,14 +5,20 @@ const io = require("socket.io")(http);
 
 let users = -1; //1 instead of 0 to exculde current user from counter
 io.on("connection", socket => {
+    let newUser = true;
+
     //welcoming a new user
     socket.emit("notify", "Welcome to QuizApp Chat!");
 
     //notify others with the new user
     socket.on("notify", user => {
+        if (!newUser) return;
+
         socket.user = user;
         socket.broadcast.emit("notify", `${socket.user} has joined the chat!`);
+        
         users++;
+        newUser = false;
         io.emit("countUsers", users);
     });
 
@@ -23,7 +29,10 @@ io.on("connection", socket => {
 
     //disconnect user
     socket.on("disconnect", () => {
+        if (newUser) return;
+        
         socket.broadcast.emit("notify", `${socket.user} has left the chat!`);
+        
         users--;
         io.emit("countUsers", users);
     });
