@@ -28,6 +28,10 @@ export default {
         };
     },
 
+    mounted() {
+        document.querySelector(".step-one form .name input").focus();
+    },
+
     computed: {
         validateName() {
             let validator = { error: false };

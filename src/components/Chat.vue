@@ -24,6 +24,7 @@
                     v-model="msg"
                     type="text"
                     placeholder="Type your message..."
+                    autofocus
                 />
                 <button @click="sendMsg()" type="click">
                     <IconPaperPlane />
@@ -34,6 +35,7 @@
 </template>
 
 <script>
+import "jquery.nicescroll";
 import IconPaperPlane from "@/components/base/IconPaperPlane.vue";
 import IconArrowLeft from "@/components/base/IconArrowLeft.vue";
 import IconChat from "@/components/base/IconChat.vue";
@@ -60,25 +62,41 @@ export default {
     mounted() {
         this.intializeChat();
         this.receiveMsg();
+        
+        //nicescroll setting
+        $(".chat-box").niceScroll({
+            zindex: 5,
+            hidecursordelay: 0,
+            autohidemode: "scroll",
+            cursorborderradius: 0,
+            cursorborder: 0,
+            cursorwidth: "5px",
+            cursorcolor: "#69d7e6"
+        });
     },
 
     methods: {
         toggleChatBox() {
             $(".chat-box").toggleClass("open");
+            $(".chat-box form input").focus();
         },
 
         closeChat() {
             $(".chat-box").toggleClass("open");
-            $(".chat .chat-icon .dot").removeClass("active");
+            $(".chat-icon .dot").removeClass("active");
         },
 
         intializeChat() {
             this.socket.on("notify", msg => {
+                // print msg
                 $(".chat-box-msg").append(
                     `<div class="notification">
                         <p>${msg}</p>
                     </div>`
                 );
+
+                //unread msg notification
+                $(".chat-icon .dot").addClass("active");
             });
             this.socket.emit("notify", this.$store.getters.name);
             this.socket.on("countUsers", users => {
@@ -88,7 +106,8 @@ export default {
 
         receiveMsg() {
             this.socket.on("newMsg", payload => {
-                $(".chat .chat-icon .dot").addClass("active");
+                //unread msg notification
+                $(".chat-icon .dot").addClass("active");
 
                 //print msg
                 $(".chat-box-msg").append(
@@ -99,7 +118,7 @@ export default {
                 );
 
                 //adjust the scroll
-                const chatBox = document.querySelector(".chat .chat-box");
+                const chatBox = document.querySelector(".chat-box");
                 chatBox.scrollTop = chatBox.scrollHeight;
             });
         },
@@ -122,7 +141,7 @@ export default {
             this.socket.emit("newMsg", payload);
 
             //
-            const chatBox = document.querySelector(".chat .chat-box");
+            const chatBox = document.querySelector(".chat-box");
             chatBox.scrollTop = chatBox.scrollHeight;
             this.msg = "";
         }
@@ -167,6 +186,9 @@ export default {
             box-shadow: 8px 0px 36px 8px var(--shadow);
             overflow-y: auto;
             .chat-box-header {
+                left: 0 !important;
+            }
+            form {
                 left: 0 !important;
             }
         }
@@ -248,6 +270,8 @@ export default {
             position: fixed;
             bottom: 0;
             width: inherit;
+            left: -350px;
+            transition: all 0.5s ease-in-out;
             input[type="text"] {
                 border-radius: 5px;
             }
@@ -266,6 +290,14 @@ export default {
         }
     }
 }
+//nicescroll adjustment
+#ascrail2000 {
+    left: 0 !important;
+    & > .nicescroll-cursors {
+        left: 342px !important;
+    }
+}
+
 @media (max-width: 700px) {
     .chat .chat-box form button {
         cursor: none;
