@@ -1,5 +1,7 @@
 # QuizApp
-Fun challenge to test your knowledge with ablilty to Chat other participators. **Using Vue.js and Socket.io**
+Fun challenge to test your knowledge with the abililty to Chat other participators.
+
+**Built with ❤ , Vue.js & Socket.io**
 
 ### [**Demo**](https://quiz-app-619.herokuapp.com/)
 

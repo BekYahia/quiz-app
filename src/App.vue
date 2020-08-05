@@ -2,7 +2,7 @@
     <div id="app">
         <a
             class="github-corner"
-            href="http://github.com/BekYahia"
+            href="http://github.com/BekYahia/quiz-app"
             target="_blank"
             rel="noopener noreferrer"
             title="View source on GitHub"
@@ -19,6 +19,8 @@
 <script>
 import IconGithub from "@/components/base/IconGithub.vue";
 export default {
+    name: "App",
+
     components: {
         IconGithub
     }
