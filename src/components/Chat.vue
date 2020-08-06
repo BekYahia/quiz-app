@@ -62,7 +62,7 @@ export default {
     mounted() {
         this.intializeChat();
         this.receiveMsg();
-        
+
         //nicescroll setting
         $(".chat-box").niceScroll({
             zindex: 5,
@@ -100,6 +100,7 @@ export default {
             });
             this.socket.emit("notify", this.$store.getters.name);
             this.socket.on("countUsers", users => {
+                users = users < 0 ? 0 : users; //avoid negitive values when server reconnect
                 $(".chat-box-header .online .counter").text(users);
             });
         },

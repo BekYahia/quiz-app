@@ -49,6 +49,14 @@
                             `${result.score} of ${result.total}, what a Victory!`
                         }}
                     </p>
+                    <a
+                        :href="
+                            `https://twitter.com/intent/tweet?text=I just scored ${result.score} of ${result.total} in QuizApp. are you up for the challenge?&url=https://quiz-app-619.herokuapp.com/&via=BekYahia`
+                        "
+                        class="tweet-button"
+                    >
+                        <IconTwitter /> Tweet your win!
+                    </a>
                 </template>
 
                 <template v-else>
@@ -62,7 +70,7 @@
                     <p>
                         Lucky you, we believe in second chance 😄,
                         <a @click.prevent @click="reload()" href="">
-                            to quiz again 💪.
+                            quiz me again 💪.
                         </a>
                     </p>
                 </template>
@@ -72,6 +80,8 @@
 </template>
 
 <script>
+import "@/assets/js/platform.twitter.js";
+import IconTwitter from "@/components/base/IconTwitter.vue";
 import IconGrinHearts from "@/components/base/IconGrinHearts.vue";
 import IconSad from "@/components/base/IconSad.vue";
 import _ from "lodash";
@@ -82,7 +92,8 @@ export default {
     components: {
         IconBulb,
         IconGrinHearts,
-        IconSad
+        IconSad,
+        IconTwitter
     },
 
     props: {
@@ -330,6 +341,19 @@ export default {
             color: yellow;
             font-weight: 600;
         }
+    }
+    .tweet-button {
+        color: #fff;
+        font-weight: 600;
+        text-decoration: none;
+        background-color: #1b95e0;
+        padding: 3px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin: auto;
+        width: 170px;
     }
 }
 
