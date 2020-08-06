@@ -6,10 +6,11 @@
             :class="wrapperClass(index)"
         >
             <li :class="itemClass(index)">
-                <img
-                    v-if="score"
-                    :src="require('@/assets/svg/' + iconClass(index) + '.svg')"
-                />
+                <template v-if="score">
+                    <IconQuestion v-if="iconName(index) === 'question'" />
+                    <IconTimes v-if="iconName(index) === 'times'" />
+                    <IconCheck v-if="iconName(index) === 'check'" />
+                </template>
                 <span v-else>{{ counter }}</span>
             </li>
 
@@ -19,8 +20,17 @@
 </template>
 
 <script>
+import IconCheck from "@/components/base/IconCheck.vue";
+import IconTimes from "@/components/base/IconTimes.vue";
+import IconQuestion from "@/components/base/IconQuestion.vue";
 export default {
     name: "ProgressBar",
+
+    components: {
+        IconQuestion,
+        IconTimes,
+        IconCheck
+    },
 
     props: {
         loop: Number,
@@ -49,7 +59,7 @@ export default {
             return this.score[index] ? "correct" : "incorrect";
         },
 
-        iconClass(index) {
+        iconName(index) {
             if (this.score[index] === undefined) return "question";
             return this.score[index] ? "check" : "times";
         }
