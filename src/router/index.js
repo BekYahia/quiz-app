@@ -20,6 +20,7 @@ const routes = [
     {
         path: "/setup",
         component: Setup,
+        redirect: { name: "StepOne" },
         children: [
             {
                 path: "step-one",
