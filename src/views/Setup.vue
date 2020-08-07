@@ -27,7 +27,10 @@ export default {
     },
 
     created() {
-        this.$store.dispatch("fetch_categories");
+        const categories = this.$store.state.categories;
+        if (!categories.length) {
+            this.$store.dispatch("fetch_categories");
+        }
     },
 
     updated() {
