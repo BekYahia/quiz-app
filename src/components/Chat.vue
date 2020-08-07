@@ -170,6 +170,8 @@ export default {
         padding: 5px;
         background-color: #aaa;
         border-radius: 0 15% 15% 0;
+        z-index: 1;
+        box-shadow: 17px 1px 16px -13px rgba(0, 0, 0, 0.34);
         .dot {
             width: 10px;
             height: 10px;

@@ -124,6 +124,7 @@ export default {
                 width: 40%;
                 text-align: center;
                 margin-top: 10px;
+                font-weight: 500;
             }
         }
     }
@@ -136,7 +137,7 @@ export default {
 
 @media (max-width: 700px) {
     form {
-        font-size: 14px;
+        // font-size: 14px;
         label {
             flex-direction: column;
             span {
