@@ -75,6 +75,10 @@ export default {
         });
     },
 
+    destroyed() {
+        this.socket.disconnect();
+    },
+
     methods: {
         toggleChatBox() {
             $(".chat-box").toggleClass("open");
@@ -97,8 +101,14 @@ export default {
 
                 //unread msg notification
                 $(".chat-icon .dot").addClass("active");
+
+                //adjust the scroll
+                const chatBox = document.querySelector(".chat-box");
+                chatBox.scrollTop = chatBox.scrollHeight;
             });
+
             this.socket.emit("notify", this.$store.getters.name);
+
             this.socket.on("countUsers", users => {
                 users = users < 0 ? 0 : users; //avoid negitive values when server reconnect
                 $(".chat-box-header .online .counter").text(users);
@@ -292,10 +302,10 @@ export default {
     }
 }
 //nicescroll adjustment
-#ascrail2000 {
+.nicescroll-rails {
     left: 0 !important;
     & > .nicescroll-cursors {
-        left: 342px !important;
+        left: 345px !important;
     }
 }
 
