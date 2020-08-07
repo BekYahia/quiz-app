@@ -189,7 +189,7 @@ export default {
         bottom: 0;
         left: -350px;
         z-index: 3;
-        transition: all 0.5s ease-in-out;
+        @extend .main-transition;
         background-color: #f9f9f9;
         color: gray;
         &.open {
@@ -213,7 +213,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: all 0.5s ease-in-out;
+            @extend .main-transition;
             padding: 5px 10px;
             z-index: 1;
             .online {
@@ -282,7 +282,7 @@ export default {
             bottom: 0;
             width: inherit;
             left: -350px;
-            transition: all 0.5s ease-in-out;
+            @extend .main-transition;
             input[type="text"] {
                 border-radius: 5px;
             }
@@ -300,6 +300,9 @@ export default {
             }
         }
     }
+    .main-transition {
+        transition: all 0.4s ease-in-out;
+    }
 }
 //nicescroll adjustment
 .nicescroll-rails {
@@ -310,8 +313,22 @@ export default {
 }
 
 @media (max-width: 700px) {
-    .chat .chat-box form button {
-        cursor: none;
+    .chat {
+        .chat-box {
+            @extend .mobile-transition;
+            .chat-box-header {
+                @extend .mobile-transition;
+            }
+            form {
+                @extend .mobile-transition;
+                button {
+                    cursor: none;
+                }
+            }
+        }
+    }
+    .mobile-transition {
+        transition: all 0.2s linear !important;
     }
 }
 </style>
