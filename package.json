@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "jquery": "^3.5.1",
     "jquery.nicescroll": "^3.7.6",
     "register-service-worker": "^1.7.1",
